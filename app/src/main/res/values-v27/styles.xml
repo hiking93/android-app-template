@@ -1,0 +1,9 @@
+<resources>
+
+	<style name="LightAppTheme" parent="BaseLightAppTheme">
+		<item name="colorNavigationOverlay">@color/system_ui_overlay_light</item>
+		<item name="android:windowLightNavigationBar">true</item>
+		<item name="android:navigationBarColor">@android:color/transparent</item>
+	</style>
+
+</resources>

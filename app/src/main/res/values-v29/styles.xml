@@ -1,0 +1,11 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<style name="AppTheme.NavigationOverlay">
+		<item name="android:navigationBarColor">@android:color/transparent</item>
+	</style>
+
+	<style name="DarkAppTheme.NavigationOverlay">
+		<item name="android:navigationBarColor">@android:color/transparent</item>
+	</style>
+
+</resources>
