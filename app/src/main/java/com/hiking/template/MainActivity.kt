@@ -4,46 +4,73 @@ import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import com.hiking.template.base.ViewBindingActivity
+import com.hiking.template.databinding.ActivityMainBinding
 import com.hiking.template.extension.applyEdgeToEdge
 import com.hiking.template.extension.dpToPxSize
-import kotlinx.android.synthetic.main.activity_main.*
 import java.text.NumberFormat
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         setupWindow()
     }
 
+    override fun onCreateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = ActivityMainBinding.inflate(inflater, container, false)
+
     private fun setupWindow() {
         applyEdgeToEdge()
-        ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { v, insets ->
-            textView.text = makeContent(insets)
-            rootLayout.updatePadding(
-                left = insets.systemWindowInsetLeft,
-                right = insets.systemWindowInsetRight
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemWindowInsets = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
             )
-            contentLayout.updatePadding(
-                bottom = insets.systemWindowInsetBottom + 16f.dpToPxSize(v.context)
+            binding.root.updatePadding(
+                left = systemWindowInsets.left,
+                right = systemWindowInsets.right,
             )
+            binding.appBarLayout.updatePadding(
+                top = systemWindowInsets.top,
+            )
+            val systemBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.textView.text = makeContent(systemBarInsets)
+            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
             WindowInsetsCompat.Builder(insets)
-                .setSystemWindowInsets(Insets.of(0, insets.systemWindowInsetTop, 0, 0))
+                .setInsets(
+                    WindowInsetsCompat.Type.systemBars(),
+                    Insets.of(0, 0, 0, systemBarInsets.bottom)
+                )
+                .setInsets(
+                    WindowInsetsCompat.Type.ime(),
+                    Insets.of(0, 0, 0, imeInsets.bottom)
+                )
                 .build()
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(binding.contentLayout) { v, insets ->
+            val systemWindowInsets = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
+            )
+            binding.contentLayout.updatePadding(
+                bottom = systemWindowInsets.bottom + 16f.dpToPxSize(v.context)
+            )
+            WindowInsetsCompat.CONSUMED
         }
     }
 
-    private fun makeContent(insets: WindowInsetsCompat): CharSequence {
+    private fun makeContent(systemBarInsets: Insets): CharSequence {
         val displayDensity = resources.displayMetrics.density
         val displayWidth = resources.displayMetrics.widthPixels
         val displayHeight = resources.displayMetrics.heightPixels
-        val systemWindowInsets = insets.systemWindowInsets
         val totalMemory = ActivityManager.MemoryInfo().apply {
             (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getMemoryInfo(this)
         }.totalMem
@@ -72,11 +99,11 @@ class MainActivity : AppCompatActivity() {
             Width: ${displayWidth.let { "${it}px (${it / displayDensity}dp)" }}
             Height: ${displayHeight.let { "${it}px, (${it / displayDensity}dp)" }}
             
-            System window insets
-            Top: ${systemWindowInsets.top.let { "${it}px (${it / displayDensity}dp)" }}
-            Bottom: ${systemWindowInsets.bottom.let { "${it}px (${it / displayDensity}dp)" }}
-            Left: ${systemWindowInsets.left.let { "${it}px (${it / displayDensity}dp)" }}
-            Right: ${systemWindowInsets.right.let { "${it}px (${it / displayDensity}dp)" }}
+            System bar insets
+            Top: ${systemBarInsets.top.let { "${it}px (${it / displayDensity}dp)" }}
+            Bottom: ${systemBarInsets.bottom.let { "${it}px (${it / displayDensity}dp)" }}
+            Left: ${systemBarInsets.left.let { "${it}px (${it / displayDensity}dp)" }}
+            Right: ${systemBarInsets.right.let { "${it}px (${it / displayDensity}dp)" }}
         """.trimIndent()
     }
 }
