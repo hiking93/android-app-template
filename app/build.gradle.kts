@@ -4,14 +4,14 @@ plugins {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = Versions.App.TARGET_SDK
 
     defaultConfig {
         applicationId = "com.hiking.template"
-        minSdk = 21
-        targetSdk = 31
-        versionCode = 1
-        versionName = "0.0.1"
+        targetSdk = Versions.App.TARGET_SDK
+        minSdk = Versions.App.MIN_SDK
+        versionCode = Versions.App.VERSION_CODE
+        versionName = Versions.App.VERSION_NAME
     }
 
     buildFeatures {
@@ -20,7 +20,7 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -39,10 +39,9 @@ android {
 }
 
 dependencies {
-    val kotlinVersion: String by rootProject.extra
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("com.google.android.material:material:1.4.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.Kotlin.KOTLIN}")
+    implementation("androidx.appcompat:appcompat:${Versions.AndroidX.APP_COMPAT}")
+    implementation("androidx.core:core-ktx:${Versions.AndroidX.CORE_KTX}")
+    implementation("com.google.android.material:material:${Versions.Google.MATERIAL}")
 }

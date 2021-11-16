@@ -1,15 +1,11 @@
 buildscript {
-    extra.apply {
-        set("kotlinVersion", "1.5.31")
-    }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        val kotlinVersion: String by rootProject.extra
-        classpath("com.android.tools.build:gradle:7.0.3")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath("com.android.tools.build:gradle:${Versions.Android.GRADLE_PLUGIN}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.Kotlin.KOTLIN}")
     }
 }
 
