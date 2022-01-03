@@ -9,12 +9,12 @@ object Versions {
     }
 
     object Android {
-        const val GRADLE_PLUGIN = "7.0.3"
+        const val GRADLE_PLUGIN = "7.0.4"
     }
 
     object AndroidX {
-        const val APP_COMPAT = "1.3.1"
-        const val CORE_KTX = "1.3.1"
+        const val APP_COMPAT = "1.4.0"
+        const val CORE_KTX = "1.7.0"
     }
 
     object Google {
@@ -22,6 +22,6 @@ object Versions {
     }
 
     object Kotlin {
-        const val KOTLIN = "1.5.31"
+        const val KOTLIN = "1.6.10"
     }
 }
