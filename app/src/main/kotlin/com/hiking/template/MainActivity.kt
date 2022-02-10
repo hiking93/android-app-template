@@ -31,7 +31,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     private fun setupWindow() {
         applyEdgeToEdge()
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemWindowInsets = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
             )
@@ -41,6 +41,9 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             )
             binding.appBarLayout.updatePadding(
                 top = systemWindowInsets.top,
+            )
+            binding.contentLayout.updatePadding(
+                bottom = systemWindowInsets.bottom + 16f.dpToPxSize(v.context)
             )
             val systemBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             binding.textView.text = makeContent(systemBarInsets)
@@ -55,15 +58,6 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
                     Insets.of(0, 0, 0, imeInsets.bottom)
                 )
                 .build()
-        }
-        ViewCompat.setOnApplyWindowInsetsListener(binding.contentLayout) { v, insets ->
-            val systemWindowInsets = insets.getInsets(
-                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
-            )
-            binding.contentLayout.updatePadding(
-                bottom = systemWindowInsets.bottom + 16f.dpToPxSize(v.context)
-            )
-            WindowInsetsCompat.CONSUMED
         }
     }
 
