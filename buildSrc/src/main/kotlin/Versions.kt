@@ -2,14 +2,14 @@ object Versions {
 
     object App {
         const val VERSION_CODE = 1
-        const val VERSION_NAME = "0.0.1"
+        const val VERSION_NAME = "0.0.1-SNAPSHOT"
 
         const val MIN_SDK = 21
-        const val TARGET_SDK = 31
+        const val TARGET_SDK = 32
     }
 
     object Android {
-        const val GRADLE_PLUGIN = "7.1.2"
+        const val GRADLE_PLUGIN = "7.1.3"
     }
 
     object AndroidX {
