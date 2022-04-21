@@ -28,7 +28,7 @@ fun View.doOnWindowInsetsChanged(
 
                 override fun onProgress(
                     insets: WindowInsetsCompat,
-                    runningAnimations: MutableList<WindowInsetsAnimationCompat>
+                    runningAnimations: MutableList<WindowInsetsAnimationCompat>,
                 ) = callback(this@doOnWindowInsetsChanged, insets)
 
                 override fun onEnd(animation: WindowInsetsAnimationCompat) {
