@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.graphics.Insets
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.hiking.template.base.ViewBindingActivity
 import com.hiking.template.databinding.ActivityMainBinding
 import com.hiking.template.extension.applyEdgeToEdge
+import com.hiking.template.extension.doOnWindowInsetsChanged
 import com.hiking.template.extension.dpToPxSize
 import java.text.NumberFormat
 
@@ -31,7 +31,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     private fun setupWindow() {
         applyEdgeToEdge()
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+        binding.root.doOnWindowInsetsChanged { v, insets ->
             val systemWindowInsets = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
             )
