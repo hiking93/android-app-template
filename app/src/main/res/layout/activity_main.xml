@@ -5,22 +5,32 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context="com.hiking.template.MainActivity">
+	tools:context=".MainActivity">
 
 	<com.google.android.material.appbar.AppBarLayout
 		android:id="@+id/appBarLayout"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
-		<androidx.appcompat.widget.Toolbar
+		<com.google.android.material.appbar.CollapsingToolbarLayout
+			android:id="@+id/toolbarLayout"
+			style="?collapsingToolbarLayoutLargeStyle"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:theme="?actionBarTheme"
-			app:popupTheme="?actionBarPopupTheme"
-			app:title="@string/app_name" />
+			android:layout_height="?collapsingToolbarLayoutLargeSize"
+			app:layout_scrollFlags="scroll|exitUntilCollapsed"
+			app:toolbarId="@+id/toolbar">
+
+			<com.google.android.material.appbar.MaterialToolbar
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="?actionBarSize"
+				android:elevation="0dp"
+				app:layout_collapseMode="pin"
+				app:title="@string/app_name" />
+		</com.google.android.material.appbar.CollapsingToolbarLayout>
 	</com.google.android.material.appbar.AppBarLayout>
 
-	<ScrollView
+	<androidx.core.widget.NestedScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:fillViewport="true"
@@ -41,5 +51,5 @@
 				android:textAppearance="?textAppearanceBody2"
 				tools:text="@tools:sample/lorem/random" />
 		</FrameLayout>
-	</ScrollView>
+	</androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

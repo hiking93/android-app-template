@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.graphics.Insets
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.hiking.template.base.ViewBindingActivity
 import com.hiking.template.databinding.ActivityMainBinding
 import com.hiking.template.extension.applyEdgeToEdge
+import com.hiking.template.extension.doOnWindowInsetsChanged
 import com.hiking.template.extension.dpToPxSize
 import java.text.NumberFormat
 
@@ -31,7 +31,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     private fun setupWindow() {
         applyEdgeToEdge()
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+        binding.root.doOnWindowInsetsChanged { v, insets ->
             val systemWindowInsets = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
             )
@@ -41,6 +41,9 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             )
             binding.appBarLayout.updatePadding(
                 top = systemWindowInsets.top,
+            )
+            binding.contentLayout.updatePadding(
+                bottom = systemWindowInsets.bottom + 16f.dpToPxSize(v.context)
             )
             val systemBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             binding.textView.text = makeContent(systemBarInsets)
@@ -55,15 +58,6 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
                     Insets.of(0, 0, 0, imeInsets.bottom)
                 )
                 .build()
-        }
-        ViewCompat.setOnApplyWindowInsetsListener(binding.contentLayout) { v, insets ->
-            val systemWindowInsets = insets.getInsets(
-                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
-            )
-            binding.contentLayout.updatePadding(
-                bottom = systemWindowInsets.bottom + 16f.dpToPxSize(v.context)
-            )
-            WindowInsetsCompat.CONSUMED
         }
     }
 
