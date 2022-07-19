@@ -7,7 +7,7 @@ android {
     compileSdk = Versions.App.TARGET_SDK
 
     defaultConfig {
-        applicationId = "com.hiking.template"
+        applicationId = "com.github.hiking93.template"
         targetSdk = Versions.App.TARGET_SDK
         minSdk = Versions.App.MIN_SDK
         versionCode = Versions.App.VERSION_CODE
@@ -23,7 +23,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }

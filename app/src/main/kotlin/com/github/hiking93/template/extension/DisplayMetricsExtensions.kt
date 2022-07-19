@@ -1,4 +1,4 @@
-package com.hiking.template.extension
+package com.github.hiking93.template.extension
 
 import android.content.Context
 import kotlin.math.roundToInt

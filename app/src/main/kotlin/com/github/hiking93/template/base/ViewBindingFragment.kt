@@ -1,4 +1,4 @@
-package com.hiking.template.base
+package com.github.hiking93.template.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

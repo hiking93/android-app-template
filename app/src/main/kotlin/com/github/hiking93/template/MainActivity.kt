@@ -1,4 +1,4 @@
-package com.hiking.template
+package com.github.hiking93.template
 
 import android.app.ActivityManager
 import android.content.Context
@@ -9,11 +9,11 @@ import android.view.ViewGroup
 import androidx.core.graphics.Insets
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import com.hiking.template.base.ViewBindingActivity
-import com.hiking.template.databinding.ActivityMainBinding
-import com.hiking.template.extension.applyEdgeToEdge
-import com.hiking.template.extension.doOnWindowInsetsChanged
-import com.hiking.template.extension.dpToPxSize
+import com.github.hiking93.template.base.ViewBindingActivity
+import com.github.hiking93.template.databinding.ActivityMainBinding
+import com.github.hiking93.template.extension.applyEdgeToEdge
+import com.github.hiking93.template.extension.doOnWindowInsetsChanged
+import com.github.hiking93.template.extension.dpToPxSize
 import java.text.NumberFormat
 
 class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
