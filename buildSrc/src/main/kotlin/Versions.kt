@@ -9,19 +9,19 @@ object Versions {
     }
 
     object Android {
-        const val GRADLE_PLUGIN = "7.2.1"
+        const val GRADLE_PLUGIN = "7.4.0"
     }
 
     object AndroidX {
-        const val APP_COMPAT = "1.4.2"
-        const val CORE = "1.8.0"
+        const val APP_COMPAT = "1.5.1"
+        const val CORE = "1.9.0"
     }
 
     object Google {
-        const val MATERIAL = "1.6.1"
+        const val MATERIAL = "1.7.0"
     }
 
     object Kotlin {
-        const val KOTLIN = "1.7.10"
+        const val KOTLIN = "1.8.0"
     }
 }
