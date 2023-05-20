@@ -1,17 +1,18 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
 }
 
 android {
-    compileSdk = Versions.App.TARGET_SDK
+    namespace = "com.github.hiking93.template"
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.github.hiking93.template"
-        targetSdk = Versions.App.TARGET_SDK
-        minSdk = Versions.App.MIN_SDK
-        versionCode = Versions.App.VERSION_CODE
-        versionName = Versions.App.VERSION_NAME
+        minSdk = 21
+        targetSdk = 33
+        versionCode = 1
+        versionName = "0.0.1-SNAPSHOT"
     }
 
     buildFeatures {
@@ -19,7 +20,7 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -38,10 +39,13 @@ android {
     }
 }
 
+repositories {
+    google()
+    mavenCentral()
+}
+
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.Kotlin.KOTLIN}")
-    implementation("androidx.appcompat:appcompat:${Versions.AndroidX.APP_COMPAT}")
-    implementation("androidx.core:core-ktx:${Versions.AndroidX.CORE}")
-    implementation("com.google.android.material:material:${Versions.Google.MATERIAL}")
+    implementation(libs.appcompat)
+    implementation(libs.core.ktx)
+    implementation(libs.material)
 }
