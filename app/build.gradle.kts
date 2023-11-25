@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.github.hiking93.template"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.github.hiking93.template"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "0.0.1-SNAPSHOT"
     }

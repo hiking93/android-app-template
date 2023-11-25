@@ -2,6 +2,4 @@
 
 	<style name="Theme.App.DayNight" parent="Theme.App.Dark" />
 
-	<style name="Theme.App.NavigationOverlay" parent="Theme.App.Dark.NavigationOverlay" />
-
 </resources>
