@@ -1,9 +1,9 @@
 [versions]
-agp = "8.1.4"
+agp = "8.3.2"
 appcompat = "1.6.1"
 core-ktx = "1.12.0"
-kotlin = "1.9.20"
-material = "1.10.0"
+kotlin = "1.9.23"
+material = "1.11.0"
 
 [libraries]
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
