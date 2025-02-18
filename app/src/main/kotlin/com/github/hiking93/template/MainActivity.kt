@@ -7,13 +7,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
-import androidx.core.graphics.Insets
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.github.hiking93.template.base.ViewBindingActivity
 import com.github.hiking93.template.databinding.ActivityMainBinding
+import com.github.hiking93.template.extension.consumeContentInsets
 import com.github.hiking93.template.extension.doOnWindowInsetsChanged
 import com.github.hiking93.template.extension.dpToPxSize
+import com.github.hiking93.template.extension.getContentInsets
 import java.text.NumberFormat
 
 class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
@@ -32,42 +33,32 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     private fun setupWindow() {
         enableEdgeToEdge()
         binding.root.doOnWindowInsetsChanged { v, insets ->
-            val systemWindowInsets = insets.getInsets(
-                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
-            )
+            val contentInsets = insets.getContentInsets()
             binding.root.updatePadding(
-                left = systemWindowInsets.left,
-                right = systemWindowInsets.right,
+                left = contentInsets.left,
+                right = contentInsets.right,
             )
             binding.appBarLayout.updatePadding(
-                top = systemWindowInsets.top,
+                top = contentInsets.top,
             )
             binding.contentLayout.updatePadding(
-                bottom = systemWindowInsets.bottom + 16f.dpToPxSize(v.context)
+                bottom = contentInsets.bottom + 16f.dpToPxSize(v.context)
             )
-            val systemBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            binding.textView.text = makeContent(systemBarInsets)
-            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
-            WindowInsetsCompat.Builder(insets)
-                .setInsets(
-                    WindowInsetsCompat.Type.systemBars(),
-                    Insets.of(0, 0, 0, systemBarInsets.bottom)
-                )
-                .setInsets(
-                    WindowInsetsCompat.Type.ime(),
-                    Insets.of(0, 0, 0, imeInsets.bottom)
-                )
-                .build()
+            binding.textView.text = makeContent(insets)
+            insets.consumeContentInsets(left = true, top = true, right = true)
         }
     }
 
-    private fun makeContent(systemBarInsets: Insets): CharSequence {
+    private fun makeContent(windowInsets: WindowInsetsCompat): CharSequence {
         val displayDensity = resources.displayMetrics.density
         val displayWidth = resources.displayMetrics.widthPixels
         val displayHeight = resources.displayMetrics.heightPixels
         val totalMemory = ActivityManager.MemoryInfo().apply {
             (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getMemoryInfo(this)
         }.totalMem
+
+        val systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+        val displayCutoutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout())
 
         return """
             Manufacturer: ${Build.MANUFACTURER}
@@ -98,6 +89,12 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
             Bottom: ${systemBarInsets.bottom.let { "${it}px (${it / displayDensity}dp)" }}
             Left: ${systemBarInsets.left.let { "${it}px (${it / displayDensity}dp)" }}
             Right: ${systemBarInsets.right.let { "${it}px (${it / displayDensity}dp)" }}
+            
+            Display cutout insets
+            Top: ${displayCutoutInsets.top.let { "${it}px (${it / displayDensity}dp)" }}
+            Bottom: ${displayCutoutInsets.bottom.let { "${it}px (${it / displayDensity}dp)" }}
+            Left: ${displayCutoutInsets.left.let { "${it}px (${it / displayDensity}dp)" }}
+            Right: ${displayCutoutInsets.right.let { "${it}px (${it / displayDensity}dp)" }}
         """.trimIndent()
     }
 }
